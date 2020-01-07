@@ -53,13 +53,13 @@ thermo_style	custom step atoms temp epair etotal press
 thermo          100
 thermo_modify	temp add
 
-#dump		1 all atom 50 dump.deposit.atom
+# dump		1 all atom 50 dump.deposit.atom
 
-dump		2 all image 1000 figures/image.*.jpg type type &
-		axes yes 0.8 0.02 view 80 -5
-dump_modify	2 pad 5
+# dump		2 all image 1000 figures/image.*.jpg type type &
+# 		axes yes 0.8 0.02 view 80 -5
+# dump_modify	2 pad 5
 
-dump		3 all movie 25 movie.Si.tersoff.modc.mpg type type &
+dump		3 all movie 25 movie.Si.flat.surface.modc.mpg type type &
 		axes yes 0.8 0.02 view 80 -5 size 1920 1080
 dump_modify	3 pad 5
 
