@@ -6,7 +6,8 @@ import pandas as pd
 # import sys
 
 # files = [f for f in listdir() if 'f_x_E' in f and f.startswith('Case') and f.endswith('.txt')]
-file = "dump.deposit.atom.velocity.txt"
+# file = "dump.deposit.atom.velocity.txt"
+file = "processed_data.txt"
 
 file_data = open(file, 'r').read()
 lines = file_data.split('\n')
@@ -35,14 +36,14 @@ data_df = data_df.reset_index(drop=True)
 row_ys_max = data_df.groupby(['id'])['ys'].transform(max) == data_df['ys']
 data_df_reduced = data_df[row_ys_max].reset_index(drop=True)
 data_df_reduced['theta'] = np.arctan(data_df_reduced['vy']/data_df_reduced['vz'])/np.pi*180
-print(data_df_reduced)
-
+# print(data_df_reduced.to_string())
 
 fig = plt.figure()
 fig.add_subplot(111)
-plt.hist(data_df_reduced['theta'][0:47])
-# plt.plot(energy, accum)
-# plt.xlabel('Energy (eV)')
-# plt.ylabel('Relative charge accumulated')
-# plt.savefig(file[0:file.find('.txt')] + '.pdf')
+plt.hist(data_df_reduced['theta'], bins=50, rwidth=0.8)
+plt.xlabel(r'$\theta$ (degree)')
+plt.ylabel('Counts of scattered particles')
+plt.title('Histogram of scattered angles of 2500 incident ions')
 plt.show()
+
+# plt.savefig(file[0:file.find('.txt')] + '.pdf')
