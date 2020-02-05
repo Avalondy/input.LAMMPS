@@ -1,4 +1,6 @@
 *.mpg
 *.png
 *.jpg
+*.pdf
+*.txt
 log.*

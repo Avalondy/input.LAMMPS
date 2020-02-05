@@ -58,21 +58,25 @@ variable slab_yl equal (${yh}-${yl})*0.1+${yl}
 variable slab_yh equal (${yh}-${yl})*0.4+${yl}
 variable slab_zl equal (${zh}-${zl})*0.45+${zl}
 variable slab_zh equal (${zh}-${zl})*0.45+${zl}
-# region          slab block ${slab_xl} ${slab_xh} ${slab_yl} ${slab_yh} ${slab_zl} ${slab_zh}
+
 region          slab block ${slab_xl} ${slab_xh} ${slab_yl} ${slab_yh} ${slab_zl} ${slab_zh}
 # sqrt(2*100eV*1.602E-19/6.633E-26) = 220 Angstrom/ps
-# 220*cos(85)=19.174, 220*sin(85)=219.163
 # 220*cos(70)=75.244, 220*sin(70)=206.732
+# 220*cos(75)=56.940, 220*sin(75)=212.504
 # 220*cos(80)=38.203, 220*sin(80)=216.658
-fix		4 addatoms deposit 2500 2 200 12345 region slab near 1.0 &
-                vz -38.203 -38.203 vy 216.658 216.658 units box
-                # vz -10.0 -10.0 vy 30.0 30.0 units box
+# 220*cos(85)=19.174, 220*sin(85)=219.163
+# 220*cos(88)=7.6779, 220*sin(88)=219.866
+fix		4 addatoms deposit 2500 2 2000 12345 region slab near 1.0 id next &
+    vz -56.940 -56.940 vy 212.504 212.504 units box
+    # vz -7.6779 -7.6779 vy 219.866 219.866 units box
+    # vz -19.174 -19.174 vy 219.163 219.163 units box
+    # vz -38.203 -38.203 vy 216.658 216.658 units box
 
 # fix		5 addatoms wall/reflect xlo EDGE xhi EDGE ylo EDGE yhi EDGE zlo EDGE zhi EDGE
 fix		5 addatoms wall/reflect zlo EDGE
 
 thermo_style	custom step atoms temp epair etotal press
-thermo          100
+thermo          500
 thermo_modify	temp add
 thermo_modify   lost warn
 
@@ -86,5 +90,5 @@ dump_modify	2 pad 5
 # 		axes yes 0.8 0.02 view 90 0  size 1920 1080  # 80 -5
 # dump_modify	3 pad 5
 
-timestep 0.0001
-run             500000
+timestep    0.0005
+run         1000000
